@@ -45,33 +45,33 @@ await _.time(500);
 
 ### m.rand
 `_.m.rand` returns a random intiger value inside specified boundaries:
-```javascipt
+```javascript
 _.m.rand(10, 20) // Might return 12, 18, 15...
 ```
 
 ### m.average
 `_.m.average` returns the average value of an array of numbers:
-```javascipt
+```javascript
 _.m.rand(10, 20) // Might return 12, 18, 15...
 ```
 
 ### m.hex
 `_.m.hex` returns a hexadecimal representation of an intiger
-```javascipt
+```javascript
 _.m.hex(10)   // 0a
 _.m.hex(255)  // FF
 _.m.hex(1000) // 3e8
 ```
 ### m.hexToRgb
 `_.m.hex` converts a hexadecimal color representation to `rgb` 
-```javascipt
+```javascript
 _.m.hexToRgb('7c87e1')   // rgb(124, 135, 225)
 _.m.hexToRgb('7c88e180') // rgb(124, 135, 225, 0.5)
 ```
 
 ### m.rgbToHex
 `_.m.hex` converts an `rgb` and `rgba` color representations to `hex` 
-```javascipt
+```javascript
 _.m.rgbToHex('rgb(178, 0, 63)')       // b2003f
 _.m.rgbToHex('rgba(178, 0, 63, 0.5)') // b2003f7f
 ```
