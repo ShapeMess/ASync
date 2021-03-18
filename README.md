@@ -52,7 +52,7 @@ _.m.rand(10, 20) // Might return 12, 18, 15...
 ### m.average
 `_.m.average` returns the average value of an array of numbers:
 ```javascript
-_.m.rand(10, 20) // Might return 12, 18, 15...
+_.m.average(10, 20) // [10, 15, 22, 50, 6] --> 20.6
 ```
 
 ### m.hex
