@@ -1,3 +1,8 @@
+
+/*
+    Copyright Shapelessed 2021 - https://github.com/ShapeMess/AnimSync
+*/
+
 (function() {
 
     'use strict';
@@ -25,42 +30,62 @@
     /*##############################################################*/
     // MATHEMATICAL METHODS
     /*##############################################################*/
-
-    Root.rand = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
-    Root.average = arr => { x = 0; for (let i = 0; i < arr.length; i++) x += arr[i]; return x / arr.length };
+    Root.m = {}
+    // Returns random number between two given input values
+    Root.m.rand = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+    // Returns average value from of an array of numbers
+    Root.m.average = arr => { x = 0; for (let i = 0; i < arr.length; i++) x += arr[i]; return x / arr.length };
     
-    Root.angleRad = (x1, y1, x2, y2) => Math.atan2(y2 - y1, x2 - x1);
-    Root.angleDeg = (x1, y1, x2, y2) => Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-    Root.anglePer = (x1, y1, x2, y2) => (Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI) / 360;
 
+    Root.m.hex = int => {
+        int = int.toString(16);
+        return int.length < 2 ? `0${int}` : int;
+    }
+    Root.m.hexToRgb = int => {
+        int = int.match(/.{1,2}/g);
+        for (let i = 0; i < 3; i++) int[i] = parseInt(int[i], 16);
+        if (int.length === 4) int[3] = (parseInt(int[3]) / 255).toString().substring(0,5);
+        return int.length === 3 ? `rgb(${int.join(', ')})` : `rgba(${int.join(', ')})`;
+    }
+    Root.m.rgbToHex = string => {
+        string = string.replace(/rgba|rgb|\(|\)| /g, '').split(',');
+        for (let i = 0; i < 3; i++) string[i] = Root.m.hex(parseInt(string[i]));
+        if (string.length === 4) string[3] = (parseFloat(string[3]) * 255).toString().split('.')[0];
+        return string.join('');
+    }
+
+    // Basic function to calculate the state between two values
+    // based on the percent of the animation.
+    Root.m.fromTo = (t, from, to) => from + ((to - from) * t);
 
     /*##############################################################*/
     // TIMING FUNCTIONS
     /*##############################################################*/
+    Root.f = {};
 
-    Root.easeInQuad     = t => t*t;
-    Root.easeInCubic    = t => t*t*t;
-    Root.easeInQuart    = t => t*t*t*t;
-    Root.easeInQuint    = t => t*t*t*t*t;
+    Root.f.easeInQuad     = t => t*t;
+    Root.f.easeInCubic    = t => t*t*t;
+    Root.f.easeInQuart    = t => t*t*t*t;
+    Root.f.easeInQuint    = t => t*t*t*t*t;
 
-    Root.easeOutQuad    = t => t*(2-t);
-    Root.easeOutCubic   = t => (--t)*t*t+1;
-    Root.easeOutQuart   = t => 1-(--t)*t*t*t;
-    Root.easeOutQuint   = t => 1+(--t)*t*t*t*t;
+    Root.f.easeOutQuad    = t => t*(2-t);
+    Root.f.easeOutCubic   = t => (--t)*t*t+1;
+    Root.f.easeOutQuart   = t => 1-(--t)*t*t*t;
+    Root.f.easeOutQuint   = t => 1+(--t)*t*t*t*t;
     
-    Root.easeInOutQuad  = t => t<.5 ? 2*t*t : -1+(4-2*t)*t;
-    Root.easeInOutCubic = t => t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1;
-    Root.easeInOutQuart = t => t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t;
-    Root.easeInOutQuint = t => t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t;
+    Root.f.easeInOutQuad  = t => t<.5 ? 2*t*t : -1+(4-2*t)*t;
+    Root.f.easeInOutCubic = t => t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1;
+    Root.f.easeInOutQuart = t => t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t;
+    Root.f.easeInOutQuint = t => t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t;
 
     const c4 = (2 * Math.PI) / 3;
-    Root.easeOutElastic = t => t === 0 ? 0 : t === 1? 1 : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1
+    Root.f.easeOutElastic = t => t === 0 ? 0 : t === 1? 1 : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1
     
     const n1 = 7.5625;
     const d1 = 2.75;
-    Root.easeOutBounce = t => t < 1/d1 ? n1*t*t : t<2/d1?n1*(t-=1.5/d1)*t+.75 : t<2.5/d1?n1*(t-=2.25/d1)*t+.9375 : n1*(t-=2.625/d1)*t+.984375;
+    Root.f.easeOutBounce = t => t < 1/d1 ? n1*t*t : t<2/d1?n1*(t-=1.5/d1)*t+.75 : t<2.5/d1?n1*(t-=2.25/d1)*t+.9375 : n1*(t-=2.625/d1)*t+.984375;
 
-    Root.bezier = function(mX1, mY1, mX2, mY2) {
+    Root.f.bezier = function(mX1, mY1, mX2, mY2) {
 
         this.get = function (aX) {
             if (mX1 == mY1 && mX2 == mY2) return aX;
@@ -111,6 +136,7 @@
         scaleX:     'transform',
         scaleY:     'transform',
         scaleZ:     'transform',
+        scale:      'transform',
 
         skewX:      'transform',
         skewY:      'transform',
@@ -129,12 +155,12 @@
         scaleX: (string, value) => { if (!string.match(/scaleX/i)) string += 'scaleX()'; string = string.replace(/scaleX\((.*)\)/gmi, `scaleX(${value})`); return string; },
         scaleY: (string, value) => { if (!string.match(/scaleY/i)) string += 'scaleY()'; string = string.replace(/scaleY\((.*)\)/gmi, `scaleY(${value})`); return string; },
         scaleZ: (string, value) => { if (!string.match(/scaleZ/i)) string += 'scaleZ()'; string = string.replace(/scaleZ\((.*)\)/gmi, `scaleZ(${value})`); return string; },
+        scale: (string, value) => { if (!string.match(/scale/i)) string += 'scale()'; string = string.replace(/scale\((.*)\)/gmi, `scale(${value})`); return string; },
 
         skewX: (string, value) => { if (!string.match(/skewX/i)) string += 'skewX()'; string = string.replace(/skewX\((.*)\)/gmi, `skewX(${value})`); return string; },
         skewY: (string, value) => { if (!string.match(/skewY/i)) string += 'skewY()'; string = string.replace(/skewY\((.*)\)/gmi, `skewY(${value})`); return string; },
         skewZ: (string, value) => { if (!string.match(/skewZ/i)) string += 'skewZ()'; string = string.replace(/skewZ\((.*)\)/gmi, `skewZ(${value})`); return string; },
     }
-
 
     // Allows for easy manipulation of CSS properties.
     // Properties like translateX or rotateZ which can't be styled individually using the native style property.
@@ -146,12 +172,12 @@
         }
     }
 
-    
 
-    // Basic function to calculate the state between two values
-    // based on the percent of the animation.
-    const fromTo = (t, from, to) => from + ((to - from) * t);
-    Root.fromTo = fromTo;
+
+    Root.addClass =     name => Root.$.each(elem => elem.classList.add(name));
+    Root.removeClass =  name => Root.$.each(elem => elem.classList.add(name));
+
+    
 
     /*##############################################################*/
     // MAIN METHODS
@@ -176,7 +202,7 @@
     };
 
 
-    // "change" is a transition function that accepts 4 arguments
+    // "transition" is a transition function that accepts 4 arguments
     // duration  -  The duration of the css transition
     // next      -  This argument allows to specify after what time the function is resolved
     //              This allows to start the next animation while the current one haven't yet finished.
@@ -210,8 +236,6 @@
     Root.transition = transition;
 
 
-    // Plays a transition by changing multiple CSS properties at once
-    // Has to be provided with both the start and end values of the animation
     const styles = {
         x:              'transform',
         y:              'transform',
@@ -221,35 +245,38 @@
     }
     // Animation handlers
     const styleHandlers = {
-        defaultHandler: (t, from, to, measure) => `${Math.round(fromTo(t, from, to))}${measure}`,
+        defaultHandler: (t, from, to, measure) => `${Math.round(Root.m.fromTo(t, from, to))}${measure}`,
 
         x: (t, from, to, string, measure) => {
             if (!string.match(/translateX/i)) string += 'translateX()';
-            string = string.replace(/translateX\((.*)\)/gmi, `translateX(${fromTo(t, from, to)}${measure})`);
+            string = string.replace(/translateX\((.*)\)/gmi, `translateX(${Root.m.fromTo(t, from, to)}${measure})`);
             return string;
         },
         y: (t, from, to, string, measure) => {
             if (!string.match(/translateY/i)) string += 'translateY()';
-            string = string.replace(/translateY\((.*)\)/gmi, `translateY(${fromTo(t, from, to)}${measure})`);
+            string = string.replace(/translateY\((.*)\)/gmi, `translateY(${Root.m.fromTo(t, from, to)}${measure})`);
             return string;
         },
         z: (t, from, to, string, measure) => {
             if (!string.match(/translateZ/i)) string += 'translateZ()';
-            string = string.replace(/translateZ\((.*)\)/gmi, `translateZ(${fromTo(t, from, to)}${measure})`);
+            string = string.replace(/translateZ\((.*)\)/gmi, `translateZ(${Root.m.fromTo(t, from, to)}${measure})`);
             return string;
         },
         scale: (t, from, to, string) => {
             if (!string.match(/scale/i)) string += 'scale()';
-            string = string.replace(/scale\((.*)\)/gmi, `scale(${fromTo(t, from, to)})`);
+            string = string.replace(/scale\((.*)\)/gmi, `scale(${Root.m.fromTo(t, from, to)})`);
             return string;
         },
         rotate: (t, from, to, string) => {
             if (!string.match(/rotate/i)) string += 'rotate()';
-            string = string.replace(/rotate\((.*)\)/gmi, `rotate(${fromTo(t, from, to)}deg)`);
+            string = string.replace(/rotate\((.*)\)/gmi, `rotate(${Root.m.fromTo(t, from, to)}deg)`);
             return string;
         },
 
     }
+
+    // Plays a transition by changing multiple CSS properties at once
+    // Has to be provided with both the start and end values.
     Root.change = (duration, next, f, measure = 'px', options) => new Promise((async resolve => {
         try {
             const elems = Root.$.tg;
@@ -284,9 +311,6 @@
     /*##############################################################*/
     
     // Typewriter effect
-    // Allows easy implementation of a typewriter effect
-    // including timing functions
-    
     const getChars = (array1, array2, number, shiftTimes) => {
         array1 = [...array1];
         for (let i = 0; i < shiftTimes; i++) if (array1.length > 0) array1.shift();
@@ -310,6 +334,9 @@
             t === 1 && callback();
         });
     }
+    // Possible options:
+    // shift - how symbols to remove from the previously left text.
+    // f     - timing function
     Root.typewriter = (text, duration, options = {}, callback) => {
         let targets = Root.$.tg;
         console.log('asdasd');
@@ -330,12 +357,6 @@
             }
         });
     }
-
-
-
-
-
-
 
 
     if (!window._)          window._ = Root;

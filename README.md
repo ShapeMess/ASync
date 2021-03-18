@@ -18,8 +18,8 @@ await _.transition(1000, 0,   _.easeOutQuint,  t => { element.style.top = `${100
 ```
 
 ### change
-`_.change` is a method used to mmodify multiple CSS properties of multiple HTML elements at the same time.
-It can also manipulate on different transform properties individually, without changing the existing transforms of an element.
+`_.change` is a method used to modify multiple CSS properties of many HTML elements at the same time.
+It can also manipulate different transform properties individually, without changing the existing transforms of an element.
 Accepted parameters are the same as with `_.transition`, with the addition of the measurement unit and a list of changes to be played.
 ```javascript
 _('div').change(1000, 0, _.easeOutBounce, 'px', {
@@ -35,21 +35,57 @@ _('div').change(1000, 0, _.easeOutBounce, 'px', {
 ```
 
 ### time
-`time` is a timeout function that works just like the `window.timeout` but is promise-based and so it can be used together with the rest of the library to create time gaps in transitions. It also accepts a callback as the second parameter if there's any need to place a synchronous piece of code into the middle of the animation.
+`_.time` is a timeout function that works just like the `window.timeout` but is promise-based and so it can be used together with the rest of the library to create time gaps in transitions. It also accepts a callback as the second parameter if there's any need to place a synchronous piece of code into the middle of the animation.
 ```javascript
 await _.time(500);
 // Do something else after 500ms...
 ```
 
+## Mathematical Methods
 
-## Timings and animations
+### m.rand
+`_.m.rand` returns a random intiger value inside specified boundaries:
+```javascipt
+_.m.rand(10, 20) // Might return 12, 18, 15...
+```
+
+### m.average
+`_.m.average` returns the average value of an array of numbers:
+```javascipt
+_.m.rand(10, 20) // Might return 12, 18, 15...
+```
+
+### m.hex
+`_.m.hex` returns a hexadecimal representation of an intiger
+```javascipt
+_.m.hex(10)   // 0a
+_.m.hex(255)  // FF
+_.m.hex(1000) // 3e8
+```
+### m.hexToRgb
+`_.m.hex` converts a hexadecimal color representation to `rgb` 
+```javascipt
+_.m.hexToRgb('7c87e1')   // rgb(124, 135, 225)
+_.m.hexToRgb('7c88e180') // rgb(124, 135, 225, 0.5)
+```
+
+### m.rgbToHex
+`_.m.hex` converts an `rgb` and `rgba` color representations to `hex` 
+```javascipt
+_.m.rgbToHex('rgb(178, 0, 63)')       // b2003f
+_.m.rgbToHex('rgba(178, 0, 63, 0.5)') // b2003f7f
+```
+
+
+
+## CSS/HTML Manipulation
 
 ### css
-`_.css` is used to apply CSS styling to elements.
-Different values of the `transform` property can not be styled individually. This method solves that particular issue.
-It is to keep in mind that this method accepts camel case property names.
+`_.css` is to apply different transform properties to elements individually, which are tricky in vanilla JavaScript.
+It can be used for other CSS properties as well, but it is to keep in mind to use camel case names.
 ```javascript
 _('div').css('translateX', '100px');
+_('div').css('scaleX', '0.95');
 ```
 
 
