@@ -52,7 +52,7 @@ _.m.rand(10, 20) // Might return 12, 18, 15...
 ### m.average
 `_.m.average` returns the average value of an array of numbers:
 ```javascript
-_.m.average(10, 20) // [10, 15, 22, 50, 6] --> 20.6
+_.m.average([10, 15, 22, 50, 6]) // 20.6
 ```
 
 ### m.hex
@@ -63,14 +63,14 @@ _.m.hex(255)  // FF
 _.m.hex(1000) // 3e8
 ```
 ### m.hexToRgb
-`_.m.hex` converts a hexadecimal color representation to `rgb` 
+`_.m.hexToRgb` converts a hexadecimal color representation to `rgb` 
 ```javascript
 _.m.hexToRgb('7c87e1')   // rgb(124, 135, 225)
 _.m.hexToRgb('7c88e180') // rgb(124, 135, 225, 0.5)
 ```
 
 ### m.rgbToHex
-`_.m.hex` converts an `rgb` and `rgba` color representations to `hex` 
+`_.m.rgbToHex` converts an `rgb` and `rgba` color representations to `hex` 
 ```javascript
 _.m.rgbToHex('rgb(178, 0, 63)')       // b2003f
 _.m.rgbToHex('rgba(178, 0, 63, 0.5)') // b2003f7f
@@ -81,7 +81,7 @@ _.m.rgbToHex('rgba(178, 0, 63, 0.5)') // b2003f7f
 ## CSS/HTML Manipulation
 
 ### css
-`_.css` is to apply different transform properties to elements individually, which are tricky in vanilla JavaScript.
+`_.css` can apply different transform properties to elements individually, which are tricky in vanilla JavaScript.
 It can be used for other CSS properties as well, but it is to keep in mind to use camel case names.
 ```javascript
 _('div').css('translateX', '100px');
