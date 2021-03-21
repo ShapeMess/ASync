@@ -53,14 +53,14 @@ await _.time(500);
 | `_.f.easeOutCubic` | (t^3) |
 | `_.f.easeOutQuart` | (t^4) |
 | `_.f.easeOutQuint` | (t^5) |
-| `_.f.easeInOutQuad` | Speed changes in a parabolic manner. |
+| `_.f.easeInOutQuad` | Speed changes in a parabolic manner |
 | `_.f.easeInOutCubic` |  |
 | `_.f.easeInOutQuart` |  |
 | `_.f.easeInOutQuint` |  |
 
 ### f.bezier 
-`_.f.bezier` is a class which returns a timing function based on the initial parameters.
-! WIP - Extreme values will break the animation !
+`_.f.bezier` is a class which returns a timing function based on the initial parameters.  
+! WIP - Extreme values will break the animation !  
 `_.f.bezier(mX1, mY2, mX1, mY2)`
 ```javascript
 asdasd
@@ -70,21 +70,21 @@ asdasd
 ## Mathematical Methods
 
 ### m.rand
-`_.m.rand` returns a random intiger between two values.
+`_.m.rand` returns a random intiger between two values.  
 `_.m.average(min, max)`  
 ```javascript
 _.m.rand(10, 20) // Might return 12, 18, 15...
 ```
 
 ### m.average
-`_.m.average` returns the average value of an array of numbers.
+`_.m.average` returns the average value of an array of numbers.  
 `_.m.average(array)`  
 ```javascript
 _.m.average([10, 15, 22, 50, 6]) // 20.6
 ```
 
 ### m.fromTo
-`_.m.fromTo` takes the animation progress (between `0` & `1`), two decimal numbers and returns a value between them based on the progress.
+`_.m.fromTo` takes the animation progress (between `0` & `1`), two decimal numbers and returns a value between them based on the progress.  
 `_.m.fromTo(t, from, to)`  
 ```javascript
 _.m.fromTo(0.1, 0, 255) // 25.5
@@ -92,7 +92,7 @@ _.m.fromTo(0.5, 0, 255) // 127.5
 ```
 
 ### m.hex
-`_.m.hex` returns a hexadecimal representation of an intiger.
+`_.m.hex` returns a hexadecimal representation of an intiger.  
 `_.m.average(int)`  
 ```javascript
 _.m.hex(10)   // 0a
@@ -100,7 +100,7 @@ _.m.hex(255)  // FF
 _.m.hex(1000) // 3e8
 ```
 ### m.hexToRgb
-`_.m.hexToRgb` converts a hexadecimal color representation to `rgb`. 
+`_.m.hexToRgb` converts a hexadecimal color representation to `rgb`.  
 `_.m.average(hex)`  
 ```javascript
 _.m.hexToRgb('7c87e1')   // rgb(124, 135, 225)
@@ -108,7 +108,7 @@ _.m.hexToRgb('7c88e180') // rgb(124, 135, 225, 0.5)
 ```
 
 ### m.rgbToHex
-`_.m.rgbToHex` converts an `rgb` and `rgba` color representations to `hex`. 
+`_.m.rgbToHex` converts an `rgb` and `rgba` color representations to `hex`.  
 `_.m.average(rgb)`  
 ```javascript
 _.m.rgbToHex('rgb(178, 0, 63)')       // b2003f
@@ -116,8 +116,8 @@ _.m.rgbToHex('rgba(178, 0, 63, 0.5)') // b2003f7f
 ```
 
 ### m.hexTransform
-`_.m.hexTransform` takes the animation progress (between `0` & `1`), two hexadecimal color representations and returns a value between them, based on the progress.
-The hex values must be full 6 characters long representations, or 8 characters long in case of added transparency.
+`_.m.hexTransform` takes the animation progress (between `0` & `1`), two hexadecimal color representations and returns a value between them, based on the progress.  
+The hex values must be full 6 characters long representations, or 8 characters long in case of added transparency.  
 `_.m.average(t, from, to)`  
 ```javascript
 _.m.hexTransform(0.0, '000000', 'FFFFFF') // 000000
@@ -150,7 +150,7 @@ _('div').css('scaleX', '0.95');
 ### typewriter
 `_.typewriter` Allows for easy animation of individual text characters.
 This method returns a promise.
-The options object can include the `shift` property, that tells how many already existing characters in the element should be deleted during the animation and the `f` property that specifies the timing function.
+The options object can include the `shift` property, that tells how many already existing characters in the element should be deleted during the animation and the `f` property that specifies the timing function.  
 `_.typewriter(text, duration, options)` 
 ```javascript
 _('p').typewriter('Lorem ipsum dolor sit amet...', 1000, { shift: 100, f: _.easeOutQuad })
