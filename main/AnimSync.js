@@ -54,6 +54,17 @@
         return string.join('');
     }
 
+    Root.m.hexTransform = (t, from, to) => {
+        from = from.match(/.{1,2}/g); 
+        to = to.match(/.{1,2}/g); 
+        for (let i = 0; i < from.length; i++) {
+            from[i] = parseInt(from[i], 16);
+            to[i] = parseInt(to[i], 16);
+        };
+        for (let i = 0; i < to.length; i++) to[i] = Root.m.hex(Math.floor(Root.m.fromTo(t, from[i], to[i])));
+        return to.join(''); 
+    }
+
     // Basic function to calculate the state between two values
     // based on the percent of the animation.
     Root.m.fromTo = (t, from, to) => from + ((to - from) * t);
@@ -342,14 +353,7 @@
         console.log('asdasd');
 
         if (text.length === 0) text = emptyChars(text);
-        if (typeof callback === 'function') {
-            for (let i = 0; i < targets.length; i++) {
-                const elem = targets[i];
-                textEase(elem, text, duration, options, callback);
-            }
-            return Root;
-        }
-        else return new Promise(resolve => {
+        return new Promise(resolve => {
             for (let i = 0; i < targets.length; i++) {
                 const elem = targets[i];
                 if (i === targets.length - 1) textEase(elem, text, duration, options, () => { resolve(); console.log('resolved!')} );
