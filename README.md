@@ -44,6 +44,7 @@ await _.time(500);
 ## Miming Functions
 
 | Function | Description |
+| --- | --- |
 | `_.f.easeInQuad`  | (t^2) Speed grows exponentially |
 | `_.f.easeInCubic` | (t^3) |
 | `_.f.easeInQuart` | (t^4) |
