@@ -4,6 +4,8 @@ An async library with easy synchronous-like syntax.
 This library is focused on providing advanced methods for animations and transitions. 
 Splitting the code into small syntactically good looking and easy to debug parts.
 
+AnimSync is a project focused on providing an easy to work with async animation library that consists of small building blocks that can be easily used to create advanced animations, and adresses many problems like animating individual CSS transforms or HEX color values.
+
 ## Timings and animations
 
 
@@ -63,7 +65,7 @@ await _.time(500);
 ! WIP - Extreme values will break the animation !  
 `_.f.bezier(mX1, mY2, mX1, mY2)`
 ```javascript
-asdasd
+const f1 = new _.f.bezier(.65 ,.07, .07, .41);
 ```
 
 
@@ -130,7 +132,7 @@ _.m.hexTransform(0.8, '000000', 'FFFFFF') // cccccc
 ## CSS/HTML Manipulation
 
 ### class
-`_.addClass` `_.removeClass` remove classes from all matching available HTML elements.
+`_.addClass` `_.removeClass` add/remove classes from all matching available HTML elements.
 ```javascript
 _('div').addClass('class1');
 _('div').removeClass('class2');

@@ -348,7 +348,7 @@
     // Possible options:
     // shift - how symbols to remove from the previously left text.
     // f     - timing function
-    Root.typewriter = (text, duration, options = {}, callback) => {
+    Root.typewriter = (text, duration, options = {}) => {
         let targets = Root.$.tg;
         console.log('asdasd');
 
