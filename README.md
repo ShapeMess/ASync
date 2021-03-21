@@ -138,7 +138,7 @@ _('div').removeClass('class2');
 
 ### css
 `_.css` can apply different transform properties to elements individually, which are tricky in vanilla JavaScript.
-It can be used for other CSS properties as well, but it is to keep in mind to use camel case names.
+It can be used for other CSS properties as well, but it is to keep in mind to use camel case names.  
 `_.m.average(property, value)`  
 ```javascript
 _('div').css('translateX', '100px');
