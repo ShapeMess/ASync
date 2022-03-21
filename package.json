@@ -1,0 +1,25 @@
+{
+  "name": "a-sync",
+  "version": "1.0.0",
+  "description": "A lightweight promise-based library",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShapeMess/ASync.git"
+  },
+  "keywords": [
+    "promise",
+    "async",
+    "anim",
+    "animation"
+  ],
+  "author": "github.com/ShapeMess",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ShapeMess/ASync/issues"
+  },
+  "homepage": "https://github.com/ShapeMess/ASync#readme"
+}
